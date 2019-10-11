@@ -1,4 +1,4 @@
-﻿/// <reference path="oidc-client.js" />
+﻿/// <reference path="oidc-client-1.9.1.js" />
 
 function log() {
     document.getElementById('results').innerText = '';
@@ -27,6 +27,10 @@ var config = {
     post_logout_redirect_uri : "http://localhost:5003/index.html",
 };
 var mgr = new Oidc.UserManager(config);
+
+mgr.events.addUserSignedOut(() => {
+    mgr.signoutRedirect();
+});
 
 mgr.getUser().then(function (user) {
     if (user) {
